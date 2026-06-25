@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 3 — Hypothesis Testing | VM2100</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+</head>
+<body>
+  <canvas id="particle-canvas"></canvas>
+
+  <div class="content">
+    <header class="header">
+      <a href="../" class="logo">VM2100</a>
+      <a href="./" class="home-link">Week 3</a>
+      <a href="quiz.html" class="home-link" style="margin-left:auto;">Take Quiz &#8594;</a>
+    </header>
+
+    <div class="section">
+      <div class="breadcrumb">
+        <a href="../">Home</a> <span>/</span> Week 3 — Hypothesis Testing
+      </div>
+
+      <h1>Week 3: Hypothesis Testing &amp; Correlation</h1>
+      <p class="subtitle" style="margin-top:8px; color: var(--text-secondary);">
+        Statistical inference — from null hypotheses to p-values, and testing relationships between variables
+      </p>
+
+      <h2>What is Hypothesis Testing?</h2>
+      <p>
+        <strong>Hypothesis</strong> — a proposed explanation for a phenomenon.<br>
+        <strong>Hypothesis testing</strong> — a statistical procedure to test whether a hypothesis can be rejected or not.
+      </p>
+
+      <div class="card">
+        <p style="margin:0;">
+          <strong>Example question:</strong> <em>Is there an association between recovery time after surgery and the sex of the dog?</em>
+        </p>
+      </div>
+
+      <h2>Null Hypothesis ($H_0$) vs Alternative Hypothesis ($H_a$)</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h4>$H_0$ — Null Hypothesis</h4>
+          <p>States that there is <strong>no relationship / association / difference</strong> between the variables under investigation.</p>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Example: <em>There is no difference in average recovery time between male and female dogs.</em></p>
+        </div>
+        <div class="card">
+          <h4>$H_a$ — Alternative Hypothesis</h4>
+          <p>States that there <strong>is</strong> some kind of relation or association.</p>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Example: <em>There is a difference in average recovery time between male and female dogs. Male dogs have longer recovery time.</em></p>
+        </div>
+      </div>
+
+      <h2>Type I &amp; Type II Errors</h2>
+      <table>
+        <tr>
+          <th></th>
+          <th>$H_0$ is TRUE</th>
+          <th>$H_0$ is FALSE</th>
+        </tr>
+        <tr>
+          <td><strong>Reject $H_0$</strong></td>
+          <td style="color:var(--error);">Type I Error (False Positive)<br><small>$\alpha$ = significance level</small></td>
+          <td style="color:var(--success);">Correct decision!<br><small>Power = $1 - \beta$</small></td>
+        </tr>
+        <tr>
+          <td><strong>Not reject $H_0$</strong></td>
+          <td style="color:var(--success);">Correct decision</td>
+          <td style="color:var(--error);">Type II Error (False Negative)<br><small>$\beta$ = type II error rate</small></td>
+        </tr>
+      </table>
+
+      <div class="callout warning">
+        <strong>Type I Error ($\alpha$):</strong> Asserting a difference when there is none (false alarm). Typically set at $\alpha = 0.05$ (5%).
+      </div>
+      <div class="callout warning">
+        <strong>Type II Error ($\beta$):</strong> Failing to detect a real difference. Related to <strong>statistical power</strong> ($1-\beta$) — the probability of detecting a true effect. Larger sample size → higher power.
+      </div>
+
+      <h2>P-Value</h2>
+      <p>
+        The p-value is the <strong>probability of observing the data (or more extreme)</strong> assuming the null hypothesis is true.
+      </p>
+      <div class="card accent">
+        <ul>
+          <li><strong>Smaller p-value</strong> → stronger evidence <em>against</em> $H_0$ (higher significance)</li>
+          <li>When $H_0$ is true, p-value is the cumulative probability of finding this or more extreme events at the tail end</li>
+          <li>Reject $H_0$ if <strong>$p < \alpha$</strong> (we observed an extreme event)</li>
+        </ul>
+      </div>
+
+      <div class="callout info">
+        <strong>Interpretation:</strong><br>
+        If $p < \alpha$ (e.g., $p = 0.03 < 0.05$): <strong>"There is a significant association/difference"</strong> (reject $H_0$)<br>
+        If $p \ge \alpha$ (e.g., $p = 0.30 > 0.05$): <strong>"No significant association can be identified"</strong> (do not reject $H_0$)
+      </div>
+
+      <h2>One-Tailed vs Two-Tailed Tests</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h4>Two-Tailed Test</h4>
+          <p>A test for whether there is a <strong>difference</strong> between groups (direction unspecified).</p>
+          <p style="font-size:0.85rem; color:var(--text-muted);">"There is a difference in recovery time between male and female dogs."</p>
+        </div>
+        <div class="card">
+          <h4>One-Tailed Test</h4>
+          <p>A test for whether there is a difference in a <strong>specific direction</strong>.</p>
+          <p style="font-size:0.85rem; color:var(--text-muted);">"Male dogs have lower recovery time than female dogs."</p>
+        </div>
+      </div>
+
+      <h2>Five Steps in Hypothesis Testing</h2>
+      <div class="card">
+        <ol>
+          <li><strong>State the hypotheses:</strong> Define $H_0$ and $H_a$</li>
+          <li><strong>Choose a test method and set $\alpha$:</strong> Different data types need different tests; $\alpha$ is usually 0.05, 0.01, or 0.001</li>
+          <li><strong>Compute the test statistic:</strong> Summarise evidence according to the chosen test</li>
+          <li><strong>Calculate p-value:</strong> And compare it to $\alpha$</li>
+          <li><strong>Make a decision:</strong> Reject $H_0$ or not</li>
+        </ol>
+      </div>
+
+      <h2>Example: The Coin Flip</h2>
+      <div class="card accent">
+        <p>We toss a fair coin 8 times and observe 7 heads, 1 tail. Is the coin fair?</p>
+        <p><strong>Step 1:</strong> $H_0$: The coin is fair. $H_a$: The coin is loaded towards heads.<br>
+        <strong>Step 2:</strong> Binomial distribution with $p=0.5$, $n=8$; $\alpha=0.05$, one-tailed test.<br>
+        <strong>Step 3-4:</strong> $P(|X \ge 7|) = P(7) + P(8) = 0.0312 + 0.0039 = 0.0351$<br>
+        <strong>Step 5:</strong> $p = 0.0351 < \alpha = 0.05$ → <strong>Reject $H_0$</strong></p>
+      </div>
+
+      <h2>The Monte Carlo &amp; Gambler's Fallacy</h2>
+      <div class="card">
+        <p>In 1913, at Monte Carlo Casino, the roulette ball fell on black <strong>26 times in a row</strong>. Gamblers bet everything on red, believing it was "due."</p>
+        <p><strong>The fallacy:</strong> Past independent events don't affect future probabilities. Each spin is independent — the ball doesn't "remember."</p>
+      </div>
+
+      <div class="callout warning">
+        <strong>Lesson:</strong> <em>"Failing to reject"</em> does not mean "proving" the null hypothesis. Just because we haven't found evidence against $H_0$ doesn't mean $H_0$ is true. A small sample may lack the <strong>power</strong> to detect a real effect.
+      </div>
+
+      <h2>Correlation: Testing Association Between Two Continuous Variables</h2>
+
+      <h3>Pearson Correlation Coefficient ($r$)</h3>
+      <p>
+        A measure of <strong>linear correlation</strong> between two continuous variables X and Y, ranging from <strong>-1 to +1</strong>.
+      </p>
+      <p>$$r = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum (x_i - \bar{x})^2 \sum (y_i - \bar{y})^2}}$$</p>
+
+      <h3>Interpreting Correlation</h3>
+      <table>
+        <tr><th>$r$ Value</th><th>$r^2$</th><th>Interpretation</th></tr>
+        <tr><td>$r = +1.0$</td><td>1.0</td><td>Perfect positive correlation</td></tr>
+        <tr><td>$0.7 < r < 1.0$</td><td>$0.5 < r^2 < 1$</td><td>Strong correlation</td></tr>
+        <tr><td>$0.45 < r < 0.7$</td><td>$0.1 < r^2 < 0.5$</td><td>Moderate correlation</td></tr>
+        <tr><td>$r \approx 0$</td><td>$r^2 < 0.1$</td><td>Weak or no linear correlation</td></tr>
+        <tr><td>$-1.0 < r < -0.7$</td><td>$0.5 < r^2 < 1$</td><td>Strong negative correlation</td></tr>
+        <tr><td>$r = -1.0$</td><td>1.0</td><td>Perfect negative correlation</td></tr>
+      </table>
+
+      <h3>Spearman's Correlation ($\rho$)</h3>
+      <p>
+        Also called Spearman's rank correlation. Non-parametric — uses <strong>ranks</strong> instead of raw values. More robust to outliers and non-linear relationships.
+      </p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h4>Use Pearson if:</h4>
+          <ul>
+            <li>Data is normally distributed</li>
+            <li>Linear relationship</li>
+            <li>Few outliers</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Use Spearman if:</h4>
+          <ul>
+            <li>Data is skewed or has outliers</li>
+            <li>Non-linear monotonic relationship</li>
+            <li>Ordinal data involved</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>Correlation &#8800; Causation</h2>
+      <div class="card">
+        <p><strong>Ice cream sales</strong> and <strong>drowning deaths</strong> are strongly correlated — but ice cream doesn't cause drowning. The <strong>hidden variable</strong> is summer weather (hot days → more ice cream, more swimming → more drownings).</p>
+      </div>
+
+      <div class="callout warning">
+        <strong>Always remember:</strong> A significant correlation ($p < 0.05$) means there is a <strong>statistical association</strong> — it does NOT prove causation. Causation requires experimental design, control groups, and randomisation (covered in Week 12).
+      </div>
+
+      <h2>How to Report Results</h2>
+      <div class="card accent">
+        <ul>
+          <li><strong>Always report the actual p-value:</strong> say "$p = 0.03$", not "$p < 0.05$"</li>
+          <li><strong>State the test used:</strong> "... (p = 0.002, t-test)" or "... (Spearman's $\rho = -0.89$, p < 0.001)"</li>
+          <li><strong>Include descriptive stats:</strong> "Male (mean: 1.72; SD: 0.03) and female (mean: 1.62; SD: 0.02) dogs"</li>
+          <li><strong>Don't talk about "accepting" the null:</strong> just report findings — "no significant difference was found"</li>
+        </ul>
+      </div>
+
+      <h2>Which Statistical Test?</h2>
+      <table>
+        <tr><th>Variable Types</th><th>Test</th></tr>
+        <tr><td>Continuous vs Continuous</td><td>Pearson's or Spearman's correlation (this week)</td></tr>
+        <tr><td>Categorical vs Categorical</td><td>Chi-squared test (next week)</td></tr>
+        <tr><td>Continuous vs Binary Categorical</td><td>t-test / Mann-Whitney (later weeks)</td></tr>
+        <tr><td>Continuous vs Multi-category</td><td>ANOVA / Kruskal-Wallis (later weeks)</td></tr>
+      </table>
+
+      <div style="text-align:center; margin-top:48px;">
+        <a href="quiz.html" class="btn btn-primary">Take Week 3 Quiz &#8594;</a>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p><a href="../">Back to Home</a> | <a href="quiz.html">Week 3 Quiz</a><br>
+      VM2100 — The Royal Veterinary College, London</p>
+    </div>
+  </div>
+
+  <script src="../js/particles.js"></script>
+</body>
+</html>

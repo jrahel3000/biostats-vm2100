@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 2 — Data Exploration | VM2100</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+</head>
+<body>
+  <canvas id="particle-canvas"></canvas>
+
+  <div class="content">
+    <header class="header">
+      <a href="../" class="logo">VM2100</a>
+      <a href="./" class="home-link">Week 2</a>
+      <a href="quiz.html" class="home-link" style="margin-left:auto;">Take Quiz &#8594;</a>
+    </header>
+
+    <div class="section">
+      <div class="breadcrumb">
+        <a href="../">Home</a> <span>/</span> Week 2 — Data Exploration
+      </div>
+
+      <h1>Week 2: Descriptive Statistics &amp; Data Exploration</h1>
+      <p class="subtitle" style="margin-top:8px; color: var(--text-secondary);">
+        Summarising, visualising, and making sense of data before formal testing
+      </p>
+
+      <h2>Why Explore Data First?</h2>
+      <p>
+        Before running any hypothesis test, you must <strong>understand</strong> your data. Variable types (from Week 1) determine what statistics and visualisations are appropriate. This is called <strong>Exploratory Data Analysis (EDA)</strong>.
+      </p>
+
+      <div class="callout info">
+        <strong>EDA goals:</strong> Make sense of data, explore relationships between variables, identify patterns, and detect outliers — all <em>before</em> formal statistical testing.
+      </div>
+
+      <h2>Summarising Categorical Variables</h2>
+      <div class="card accent">
+        <h3>Bar Chart &amp; Frequency Table</h3>
+        <ul>
+          <li>Always present <strong>numbers and percentages</strong> for each category</li>
+          <li>Report the <strong>total number</strong> of observations</li>
+          <li>Be concise — don't include too many categories</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>Body Condition Score Example</h4>
+        <p>BCS is an <strong>ordinal</strong> categorical variable. Use:</p>
+        <p style="font-size:0.85rem; color:var(--text-secondary);">
+          &#10008; Histogram and mean (ordinal data can't have a meaningful average)<br>
+          &#10004; Bar chart and frequency table (correct approach)
+        </p>
+      </div>
+
+      <h2>Summarising Continuous Variables</h2>
+      <div class="card accent">
+        <h3>Histogram</h3>
+        <p>Plot a histogram first, then <strong>assess the distribution shape</strong> before choosing summary statistics.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h4>Normal / Symmetrical</h4>
+          <p>Report <strong>mean</strong> and <strong>standard deviation</strong></p>
+          <p style="font-size:0.85rem; color:var(--text-muted)">
+            <span class="katex-inline">$$\bar{x} \pm SD$$</span>
+            Mean describes central tendency; SD describes spread around the mean.
+          </p>
+        </div>
+        <div class="card">
+          <h4>Skewed / Non-Normal</h4>
+          <p>Report <strong>median</strong> with <strong>range</strong>, <strong>min, max, Q1, Q3, IQR</strong></p>
+          <p style="font-size:0.85rem; color:var(--text-muted)">
+            Median is more robust to outliers. IQR (Q3 − Q1) captures the middle 50% of data.
+          </p>
+        </div>
+      </div>
+
+      <h2>Measures of Central Tendency</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h4>Mean ($\bar{x}$)</h4>
+          <p>The arithmetic average. Sensitive to extreme values.</p>
+          <p>$$\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$$</p>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Best for: normally distributed data</p>
+        </div>
+        <div class="card">
+          <h4>Median</h4>
+          <p>The middle value when data are sorted. Robust to outliers.</p>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Best for: skewed data, data with outliers</p>
+        </div>
+      </div>
+
+      <h2>Measures of Dispersion</h2>
+      <table>
+        <tr><th>Measure</th><th>Description</th><th>When to Use</th></tr>
+        <tr><td>Standard Deviation (SD)</td><td>Spread of data around the mean</td><td>Normal distribution</td></tr>
+        <tr><td>Range</td><td>Max − Min</td><td>Quick overview</td></tr>
+        <tr><td>IQR</td><td>Q3 − Q1 (middle 50%)</td><td>Skewed data</td></tr>
+        <tr><td>Q1, Q3</td><td>25th &amp; 75th percentiles</td><td>Skewed data, box plots</td></tr>
+      </table>
+
+      <h2>Example: Seizures in Epileptic Dogs</h2>
+      <div class="card">
+        <p>Owners reported the number of seizures observed in a group of epileptic dogs over the course of a month (ranged from 0 to 15).</p>
+        <p><strong>Variable type:</strong> Discrete (countable, approximates continuous)</p>
+        <p><strong>Summary:</strong> The number of seizures ranged from 0 to 15, with a median of 0.</p>
+      </div>
+
+      <div class="callout warning">
+        <strong>Remember from Week 1:</strong> You cannot calculate a meaningful <strong>mean</strong> for ordinal data (like BCS). The "average" of two extremes hides clinical reality. Always check your variable type before choosing a summary statistic.
+      </div>
+
+      <h2>Symmetrical vs Skewed Distributions</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h4>Symmetrical (Normal)</h4>
+          <ul>
+            <li>Mean ≈ Median ≈ Mode</li>
+            <li>Bell-shaped curve</li>
+            <li>Data spread evenly around centre</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Skewed</h4>
+          <ul>
+            <li>Mean pulled toward the tail</li>
+            <li>Right-skewed: mean > median</li>
+            <li>Left-skewed: mean < median</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>Connecting to Week 3</h2>
+      <div class="callout info">
+        <strong>Preview:</strong> Next week, we'll use the summary statistics learned today as inputs for <strong>hypothesis testing</strong>. The choice of <strong>parametric</strong> vs <strong>non-parametric</strong> tests depends on your data distribution. If data is normal/symmetrical → parametric tests. If skewed → non-parametric (rank-based) tests.
+      </div>
+
+      <div style="text-align:center; margin-top:48px;">
+        <a href="quiz.html" class="btn btn-primary">Take Week 2 Quiz &#8594;</a>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p><a href="../">Back to Home</a> | <a href="quiz.html">Week 2 Quiz</a><br>
+      VM2100 — The Royal Veterinary College, London</p>
+    </div>
+  </div>
+
+  <script src="../js/particles.js"></script>
+</body>
+</html>

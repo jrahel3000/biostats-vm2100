@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 1 — Foundation | VM2100</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+</head>
+<body>
+  <canvas id="particle-canvas"></canvas>
+
+  <div class="content">
+    <header class="header">
+      <a href="../" class="logo">VM2100</a>
+      <a href="./" class="home-link">Week 1</a>
+      <a href="quiz.html" class="home-link" style="margin-left:auto;">Take Quiz &#8594;</a>
+    </header>
+
+    <div class="section">
+      <div class="breadcrumb">
+        <a href="../">Home</a> <span>/</span> Week 1 — Foundation
+      </div>
+
+      <h1>Week 1: Foundations of Biostatistics</h1>
+      <p class="subtitle" style="margin-top:8px; color: var(--text-secondary);">
+        Evidence-Based Veterinary Medicine, variable types, and the statistical mindset
+      </p>
+
+      <h2>Welcome to the World of Biostatistics</h2>
+      <p>
+        Every day in clinical practice, you'll face crucial questions: <em>Is this treatment truly effective? How accurate is this diagnostic test? What's the best course of action for this patient?</em>
+      </p>
+      <p>
+        The answers lie in <strong>statistical thinking</strong> — it's not just about numbers, it's about making sense of the evidence in front of you. When you interpret blood test results, evaluate treatment outcomes, or decide between treatment options, you're already thinking in a statistical manner, even if you don't realize it.
+      </p>
+
+      <div class="callout info">
+        <strong>Key principle:</strong> Data doesn't lie. People do. Statistics is your defence against being misled by numbers.
+      </div>
+
+      <h2>What is Evidence-Based Veterinary Medicine?</h2>
+
+      <div class="card accent">
+        <p style="font-size:1.05rem; margin:0;">
+          <strong>EBVM</strong> = the use of <strong style="color:var(--accent-cyan);">best available scientific evidence</strong>, in conjunction with <strong style="color:var(--accent-purple);">clinical expertise</strong> and consideration of <strong style="color:var(--accent-pink);">owner &amp; patient factors</strong>, to make the best clinical decisions for patients.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h4>&#128300; Diagnosis</h4>
+          <p>Will this diagnostic test identify the disease? Will it identify subclinical disease?</p>
+        </div>
+        <div class="card">
+          <h4>&#128138; Treatment</h4>
+          <p>Will treatment A be more effective than treatment B? Design treatment based on data.</p>
+        </div>
+        <div class="card">
+          <h4>&#128200; Prognosis</h4>
+          <p>Forecast the likelihood of a disease status. Critical for early-stage intervention.</p>
+        </div>
+        <div class="card">
+          <h4>&#9888;&#65039; Risk Assessment</h4>
+          <p>Probability of death or physical damage for animals undergoing certain procedures.</p>
+        </div>
+      </div>
+
+      <h2>Course Intended Learning Outcomes</h2>
+      <ul>
+        <li>Understand, explain and apply <strong>basic statistical concepts</strong>, ideas and techniques</li>
+        <li><strong>Describe, summarise and interpret data</strong></li>
+        <li>Identify the principles of <strong>quantitative research design</strong> and describe concepts such as bias, sampling and non-sampling error, sample size</li>
+        <li>Describe and apply commonly used data analysis techniques: <strong>descriptive statistics, confidence interval, hypothesis testing, ANOVA</strong></li>
+        <li>Conduct a literature search, <strong>critically evaluate literature</strong> and apply scientific evidence to decision-making</li>
+      </ul>
+
+      <h2>Challenge Your Statistical Instincts</h2>
+
+      <div class="card">
+        <h3>The Farm Size Puzzle</h3>
+        <p><em>Cows from which type of dairy farms tend to have the largest mean litter size?</em></p>
+        <p>A. Small farms &nbsp; B. Medium-size farms &nbsp; C. Large farms &nbsp; D. Hard to tell</p>
+      </div>
+
+      <div class="callout warning">
+        <strong>Hint — Sample Size Matters:</strong> Smaller farms are more likely to show <strong>extreme variations</strong> — both high and low — than large, standardized groups. The "villain" here is <strong>statistical variability</strong>. Extreme results are more common in small samples.
+      </div>
+
+      <div class="card">
+        <h3>The Parvovirus Test Puzzle</h3>
+        <p>Assume the Canine Parvovirus infection rate is <strong>1 in 5,000</strong> dogs. If a dog <em>is</em> infected, the rapid test accuracy is <strong>99%</strong>. If a dog is <em>not</em> infected, the <strong>false positive rate is 1%</strong>.</p>
+        <p><em>If a dog tests positive, what is the probability it is truly infected?</em></p>
+        <p>A. ~0.01% &nbsp; B. ~99% &nbsp; <strong>C. ~2%</strong> &nbsp; D. ~50%</p>
+      </div>
+
+      <div class="callout info">
+        <strong>The Counter-Intuitive Truth:</strong> The answer is ~2%. Why? Because the disease is <strong>rare</strong> (low prevalence). The 1% false positives from the <em>thousands of healthy dogs</em> completely outnumber the single true positive case. Context (prevalence) is just as important as test accuracy.
+      </div>
+
+      <h2>Key Concepts: Population, Sample, Variable</h2>
+
+      <div class="grid-2">
+        <div class="card">
+          <h4>Population</h4>
+          <p>The complete collection of all individuals or units we want to study and make inferences about.</p>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Example: All dairy cattle in Australia.</p>
+        </div>
+        <div class="card">
+          <h4>Sample</h4>
+          <p>A subset of individuals or units collected from the population — we can't exhaust all individuals in a population.</p>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Example: 20 sheep sampled from Wales.</p>
+        </div>
+        <div class="card">
+          <h4>Variable</h4>
+          <p>Anything that varies between individuals, which you can measure directly or indirectly.</p>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Example: Age, gender, litter size, body weight.</p>
+        </div>
+        <div class="card">
+          <h4>Observation</h4>
+          <p>An individual described by a set of data. In a spreadsheet: <strong>rows</strong> = individuals, <strong>columns</strong> = variables.</p>
+        </div>
+      </div>
+
+      <h2>Variable Types</h2>
+
+      <h3>Quantitative / Numerical</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h4>Continuous</h4>
+          <p>Can take <strong>any value</strong> within a range. Measured on a scale with infinite precision.</p>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Examples: Body weight, temperature, height.</p>
+        </div>
+        <div class="card">
+          <h4>Discrete</h4>
+          <p>Values change in <strong>steps</strong> — countable, finite possibilities.</p>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Examples: Litter size, number of seizures, parity.</p>
+        </div>
+      </div>
+
+      <h3>Qualitative / Categorical</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h4>Nominal</h4>
+          <p>Categories with <strong>no intrinsic order</strong>. Binary is a special case of nominal.</p>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Examples: Breed, gender, ID, presence/absence of disease.</p>
+        </div>
+        <div class="card">
+          <h4>Ordinal</h4>
+          <p>Categories with some <strong>intrinsic order</strong>, but differences between levels have no objective meaning.</p>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Examples: Body Condition Score (1-9), size (small/medium/large).</p>
+        </div>
+      </div>
+
+      <div class="callout warning">
+        <strong>The "Average" Trap:</strong> Never calculate the mean of an ordinal variable! If you average BCS 1 (emaciated) and BCS 9 (severely obese), you get BCS 5 ("ideal weight") — but both animals are suffering from extreme conditions. The average hides the clinical reality because the <strong>numbers are labels, not quantities</strong>.
+      </div>
+
+      <h2>Critical Rule: Numerical or Categorical?</h2>
+      <p>Ask yourself:</p>
+      <ol>
+        <li>Does it take a range of <strong>numerical values</strong> (objective), or does it fall into <strong>categories</strong>?</li>
+        <li>Does it make sense to <strong>summarise it using an average</strong>? (e.g., male:1, female:0 — average of 0.5 is meaningless)</li>
+      </ol>
+
+      <h2>The Research Process</h2>
+      <p>
+        <strong>Formulate research question</strong> → <strong>Design study &amp; collect data</strong> → <strong>Statistical analysis</strong> → <strong>Evaluate generalisation</strong> → <strong>Reach conclusion</strong>
+      </p>
+      <p style="color:var(--text-muted); font-size:0.9rem;">
+        Key considerations in sampling: how many groups, what sample size, how to collect data, from where and when.
+        If insufficient sample size, return to the experimental design phase and re-collect data.
+      </p>
+
+      <div style="text-align:center; margin-top:48px;">
+        <a href="quiz.html" class="btn btn-primary">Take Week 1 Quiz &#8594;</a>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p><a href="../">Back to Home</a> | <a href="quiz.html">Week 1 Quiz</a><br>
+      VM2100 — The Royal Veterinary College, London</p>
+    </div>
+  </div>
+
+  <script src="../js/particles.js"></script>
+</body>
+</html>

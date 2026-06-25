@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 3 Quiz | VM2100</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+</head>
+<body>
+  <canvas id="particle-canvas"></canvas>
+
+  <div class="content">
+    <header class="header">
+      <a href="../" class="logo">VM2100</a>
+      <a href="./" class="home-link">Week 3</a>
+      <span style="margin-left:auto; color:var(--accent-cyan);" class="highlight">Quiz</span>
+    </header>
+
+    <div class="section">
+      <div class="breadcrumb">
+        <a href="../">Home</a> <span>/</span> <a href="./">Week 3</a> <span>/</span> Quiz
+      </div>
+
+      <h1>Week 3 Quiz</h1>
+      <p style="color:var(--text-secondary); margin-bottom:32px;">
+        Hypothesis testing, p-values, Type I &amp; II errors, and correlation. 10 multiple-choice questions.
+      </p>
+
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <span class="counter" id="w3quiz-counter">Question 1 of 10</span>
+          <span class="score-display" id="w3quiz-score">Score: 0/0</span>
+        </div>
+
+        <div class="progress-bar-outer">
+          <div class="progress-bar-inner" id="w3quiz-progress" style="width:0%"></div>
+        </div>
+
+        <div class="question-card" id="w3quiz-question-card">
+          <div class="q-number">Question 1</div>
+          <div class="q-text"></div>
+          <div class="options-list" id="w3quiz-options"></div>
+        </div>
+
+        <div class="explanation-box" id="w3quiz-explanation"></div>
+
+        <div class="quiz-controls">
+          <button class="btn btn-primary" id="w3quiz-submit" disabled>Submit Answer</button>
+          <button class="btn btn-secondary" id="w3quiz-next" style="display:none;">Next Question</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p><a href="../">Back to Home</a> | <a href="./">Week 3 Notes</a><br>
+      VM2100 — The Royal Veterinary College, London</p>
+    </div>
+  </div>
+
+  <script src="../js/particles.js"></script>
+  <script src="../js/quiz.js"></script>
+  <script>
+    var questions = [
+      {
+        id: 'w3-1',
+        question: 'What does the <strong>null hypothesis H\u2080</strong> typically state?',
+        options: [
+          'A. There IS a significant relationship between variables',
+          'B. There is NO relationship, association, or difference between variables',
+          'C. The p-value is less than 0.05',
+          'D. The sample size is adequate'
+        ],
+        correct: 1,
+        explanation: 'The <strong>null hypothesis (H\u2080)</strong> is the default assumption: <strong>no association, no difference</strong> between variables. It is what we try to disprove with our data.'
+      },
+      {
+        id: 'w3-2',
+        question: 'A researcher rejects the null hypothesis when it is <strong>actually true</strong>. This is a:',
+        options: [
+          'A. Type II error (false negative)',
+          'B. Correct decision',
+          'C. Type I error (false positive)',
+          'D. Significance level calculation'
+        ],
+        correct: 2,
+        explanation: 'A <strong>Type I error</strong> is rejecting H\u2080 when it is true — a <strong>false positive</strong> or false alarm. The probability of making a Type I error is controlled by the significance level \u03B1 (usually 0.05).'
+      },
+      {
+        id: 'w3-3',
+        question: 'A researcher <strong>fails to reject</strong> the null hypothesis when the alternative is actually true. This is a:',
+        options: [
+          'A. Type I error (false positive)',
+          'B. Type II error (false negative) — denoted by \u03B2',
+          'C. Significance level \u03B1',
+          'D. P-value calculation'
+        ],
+        correct: 1,
+        explanation: 'A <strong>Type II error</strong> (rate \u03B2) is failing to detect a real effect — a <strong>false negative</strong>. Statistical power = 1 - \u03B2 is the probability of correctly detecting a true effect.'
+      },
+      {
+        id: 'w3-4',
+        question: 'If <strong>p = 0.03 and \u03B1 = 0.05</strong>, what is the correct conclusion?',
+        options: [
+          'A. Accept the null hypothesis — no significant finding',
+          'B. Reject the null hypothesis — there is a significant association/difference',
+          'C. Increase the sample size',
+          'D. The test is inconclusive — need a larger \u03B1'
+        ],
+        correct: 1,
+        explanation: 'Since p = 0.03 < \u03B1 = 0.05, we <strong>reject H\u2080</strong> and conclude there is a <strong>significant association/difference</strong>. The smaller the p-value, the stronger the evidence against H\u2080.'
+      },
+      {
+        id: 'w3-5',
+        question: 'What is the <strong>significance level \u03B1</strong>?',
+        options: [
+          'A. The probability of a Type II error',
+          'B. The probability of correctly accepting H\u2080',
+          'C. The threshold probability (usually 0.05) for rejecting H\u2080 — it\'s the Type I error rate',
+          'D. The p-value of the test'
+        ],
+        correct: 2,
+        explanation: '\u03B1 is the <strong>significance level</strong> — a pre-set threshold (usually 0.05 or 0.01). It represents the <strong>maximum acceptable probability of a Type I error</strong> (false positive rate).'
+      },
+      {
+        id: 'w3-6',
+        question: 'Which test answers: <em>"Is there a difference"</em> without specifying direction?',
+        options: [
+          'A. One-tailed test — tests in one direction',
+          'B. Two-tailed test — tests for any difference in either direction',
+          'C. Binomial test — only for proportions',
+          'D. Spearman test — only for ranks'
+        ],
+        correct: 1,
+        explanation: 'A <strong>two-tailed test</strong> tests for a difference in <strong>either direction</strong> (e.g., "different" not "greater than"). A one-tailed test specifies direction (e.g., "male dogs recover faster").'
+      },
+      {
+        id: 'w3-7',
+        question: 'The Pearson correlation coefficient <strong>r</strong> ranges from:',
+        options: [
+          'A. 0 to 1',
+          'B. -1 to +1',
+          'C. 0 to 100',
+          'D. -\u221E to +\u221E'
+        ],
+        correct: 1,
+        explanation: '<strong>Pearson\'s r</strong> ranges from <strong>-1 to +1</strong>. r = -1: perfect negative correlation; r = 0: no linear correlation; r = +1: perfect positive correlation.'
+      },
+      {
+        id: 'w3-8',
+        question: 'A study finds a <strong>Spearman\'s \u03C1 = -0.89, p < 0.001</strong> between post-op temperature and recovery time. This indicates:',
+        options: [
+          'A. A weak positive correlation',
+          'B. No correlation',
+          'C. A strong negative correlation — higher temperature is associated with shorter recovery time',
+          'D. The data is normally distributed'
+        ],
+        correct: 2,
+        explanation: '\u03C1 = -0.89 is <strong>strong and negative</strong> (close to -1). p < 0.001 confirms it is <strong>statistically significant</strong>. Higher temperature → shorter recovery time.'
+      },
+      {
+        id: 'w3-9',
+        question: 'Ice cream sales and drowning deaths are positively correlated. Does ice cream <strong>cause</strong> drowning?',
+        options: [
+          'A. Yes — correlation proves causation',
+          'B. No — this is a spurious correlation; summer weather is the hidden variable',
+          'C. Yes — if p < 0.05, causation is confirmed',
+          'D. It depends on the sample size'
+        ],
+        correct: 1,
+        explanation: '<strong>Correlation \u2260 causation!</strong> This is a classic example of <strong>spurious correlation</strong>. The hidden (confounding) variable is summer weather: hot days → more ice cream <em>and</em> more swimming → more drownings.'
+      },
+      {
+        id: 'w3-10',
+        question: 'When should you choose <strong>Spearman\'s correlation</strong> over Pearson\'s?',
+        options: [
+          'A. When data is perfectly normally distributed',
+          'B. When data is skewed, has outliers, or the relationship is monotonic but non-linear',
+          'C. When you want a simpler calculation',
+          'D. Spearman and Pearson are identical — use either'
+        ],
+        correct: 1,
+        explanation: '<strong>Spearman\'s correlation</strong> is <strong>non-parametric</strong> — it uses ranks instead of raw values, making it <strong>robust to outliers and skewness</strong>. Use Pearson only when data is approximately normal and the relationship is linear.'
+      }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      initQuiz(questions, 'w3quiz', 'week3');
+      if (typeof renderMathInElement === 'function') {
+        try { renderMathInElement(document.body); } catch(e) {}
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 1 Quiz | VM2100</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+</head>
+<body>
+  <canvas id="particle-canvas"></canvas>
+
+  <div class="content">
+    <header class="header">
+      <a href="../" class="logo">VM2100</a>
+      <a href="./" class="home-link">Week 1</a>
+      <span style="margin-left:auto; color:var(--accent-cyan);" class="highlight">Quiz</span>
+    </header>
+
+    <div class="section">
+      <div class="breadcrumb">
+        <a href="../">Home</a> <span>/</span> <a href="./">Week 1</a> <span>/</span> Quiz
+      </div>
+
+      <h1>Week 1 Quiz</h1>
+      <p style="color:var(--text-secondary); margin-bottom:32px;">
+        Foundations of biostatistics, variable types, and EBVM. 10 multiple-choice questions.
+      </p>
+
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <span class="counter" id="w1quiz-counter">Question 1 of 10</span>
+          <span class="score-display" id="w1quiz-score">Score: 0/0</span>
+        </div>
+
+        <div class="progress-bar-outer">
+          <div class="progress-bar-inner" id="w1quiz-progress" style="width:0%"></div>
+        </div>
+
+        <div class="question-card" id="w1quiz-question-card">
+          <div class="q-number">Question 1</div>
+          <div class="q-text"></div>
+          <div class="options-list" id="w1quiz-options"></div>
+        </div>
+
+        <div class="explanation-box" id="w1quiz-explanation"></div>
+
+        <div class="quiz-controls">
+          <button class="btn btn-primary" id="w1quiz-submit" disabled>Submit Answer</button>
+          <button class="btn btn-secondary" id="w1quiz-next" style="display:none;">Next Question</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p><a href="../">Back to Home</a> | <a href="./">Week 1 Notes</a><br>
+      VM2100 — The Royal Veterinary College, London</p>
+    </div>
+  </div>
+
+  <script src="../js/particles.js"></script>
+  <script src="../js/quiz.js"></script>
+  <script>
+    var questions = [
+      {
+        id: 'w1-1',
+        question: 'A veterinarian records the <strong>body weight (in kg)</strong> of 50 dogs. What type of variable is this?',
+        options: ['A. Nominal categorical', 'B. Ordinal categorical', 'C. Discrete numerical', 'D. Continuous numerical'],
+        correct: 3,
+        explanation: 'Body weight can take <strong>any value</strong> within a range (e.g., 12.7 kg) — it is a continuous numerical variable. It is measured, not counted.'
+      },
+      {
+        id: 'w1-2',
+        question: 'A researcher records the <strong>sex of each dog</strong> as Male (1) or Female (0). What type of variable is this?',
+        options: ['A. Continuous', 'B. Discrete', 'C. Ordinal categorical', 'D. Nominal categorical'],
+        correct: 3,
+        explanation: 'Sex is a <strong>nominal categorical variable</strong>. There is no intrinsic order between Male and Female — the numbers 0/1 are just labels, not quantities.'
+      },
+      {
+        id: 'w1-3',
+        question: 'What is the <strong>null hypothesis (H₀)</strong> in a typical statistical test?',
+        options: ['A. The hypothesis that there IS a difference or association', 'B. The hypothesis that there is NO difference or association', 'C. The hypothesis that the sample is biased', 'D. The hypothesis that data is normally distributed'],
+        correct: 1,
+        explanation: 'The null hypothesis (H₀) is <strong>the default position</strong> — it states there is <strong>no relationship, no association, and no difference</strong> between the variables under investigation.'
+      },
+      {
+        id: 'w1-4',
+        question: 'In the <strong>farm size puzzle</strong>, which type of farms tend to produce the most extreme litter sizes?',
+        options: ['A. Large farms — more cattle, more data', 'B. Small farms — higher variability due to small sample size', 'C. Medium-size farms', 'D. All farm types are equally likely'],
+        correct: 1,
+        explanation: '<strong>Small farms</strong> have fewer animals, so their averages are more susceptible to extreme values. <strong>Small sample sizes produce results with higher variability</strong> for the mean.'
+      },
+      {
+        id: 'w1-5',
+        question: 'In the <strong>Parvovirus test puzzle</strong>, the test is 99% accurate, and the disease prevalence is 1 in 5,000. If a dog tests positive, what is the approximate probability it is truly infected?',
+        options: ['A. ~99% — the test is very accurate', 'B. ~50%', 'C. ~2% — low prevalence means false positives dominate', 'D. ~0.01% — too rare to detect'],
+        correct: 2,
+        explanation: 'The answer is <strong>~2%</strong>. Because the disease is <strong>extremely rare</strong>, the 1% false positives from healthy dogs vastly outnumber the true positives. Context (prevalence) is as important as test accuracy.'
+      },
+      {
+        id: 'w1-6',
+        question: 'Why <strong>can\'t</strong> you calculate a meaningful mean (average) for <strong>ordinal data</strong> like Body Condition Score (1-9)?',
+        options: ['A. The numbers are too large', 'B. The numbers are labels, not quantities — the distance between steps is not consistent', 'C. There are too many categories', 'D. Ordinal data must be nominal first'],
+        correct: 1,
+        explanation: 'Ordinal categories have <strong>intrinsic order</strong> but the <strong>distance between steps is not equal or meaningful</strong>. Averaging BCS 1 (emaciated) and BCS 9 (obese) gives 5 ("ideal") — but both animals are suffering from extreme malnutrition.'
+      },
+      {
+        id: 'w1-7',
+        question: 'What type of variable is <strong>"Number of puppies in a litter"</strong>?',
+        options: ['A. Continuous — litter size varies on a scale', 'B. Nominal categorical', 'C. Discrete — values change in countable steps', 'D. Ordinal categorical'],
+        correct: 2,
+        explanation: 'Litter size is <strong>discrete</strong>: it takes <strong>whole number values</strong> (1, 2, 3, ... cannot be 4.7 puppies). It is countable, not measured continuously.'
+      },
+      {
+        id: 'w1-8',
+        question: 'Which of the following best describes <strong>Evidence-Based Veterinary Medicine (EBVM)</strong>?',
+        options: ['A. Treating animals based on the vet\'s experience alone', 'B. Using the cheapest available treatment', 'C. Integrating best scientific evidence with clinical expertise and owner/patient factors', 'D. Only using treatments proven by randomised controlled trials'],
+        correct: 2,
+        explanation: 'EBVM integrates <strong>three pillars</strong>: (1) best available scientific evidence, (2) clinical expertise, and (3) consideration of owner circumstances and patient welfare. It\'s a balance, not one element alone.'
+      },
+      {
+        id: 'w1-9',
+        question: 'A variable that takes values such as <strong>"Small," "Medium," and "Large"</strong> is classified as:',
+        options: ['A. Continuous', 'B. Discrete', 'C. Nominal categorical', 'D. Ordinal categorical'],
+        correct: 3,
+        explanation: 'This is <strong>ordinal categorical</strong>. There is a clear intrinsic order (Small < Medium < Large), but the "distance" between categories is not objectively defined — you cannot say "Large is 2x Medium."'
+      },
+      {
+        id: 'w1-10',
+        question: 'What is the <strong>population</strong> in a statistical study?',
+        options: ['A. The 20 animals you collected data from', 'B. The complete collection of all individuals you want to study and make inferences about', 'C. The average of all measurements', 'D. The group that receives the treatment'],
+        correct: 1,
+        explanation: 'The <strong>population</strong> is the <strong>entire collection</strong> of individuals or units we want to study. The <strong>sample</strong> is the subset we actually collect data from (e.g., 20 sheep from Wales).'
+      }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      initQuiz(questions, 'w1quiz', 'week1');
+      if (typeof renderMathInElement === 'function') {
+        try { renderMathInElement(document.body); } catch(e) {}
+      }
+    });
+  </script>
+</body>
+</html>

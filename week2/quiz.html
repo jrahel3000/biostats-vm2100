@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 2 Quiz | VM2100</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+</head>
+<body>
+  <canvas id="particle-canvas"></canvas>
+
+  <div class="content">
+    <header class="header">
+      <a href="../" class="logo">VM2100</a>
+      <a href="./" class="home-link">Week 2</a>
+      <span style="margin-left:auto; color:var(--accent-cyan);" class="highlight">Quiz</span>
+    </header>
+
+    <div class="section">
+      <div class="breadcrumb">
+        <a href="../">Home</a> <span>/</span> <a href="./">Week 2</a> <span>/</span> Quiz
+      </div>
+
+      <h1>Week 2 Quiz</h1>
+      <p style="color:var(--text-secondary); margin-bottom:32px;">
+        Descriptive statistics, data summarisation, and visualisation. 10 multiple-choice questions.
+      </p>
+
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <span class="counter" id="w2quiz-counter">Question 1 of 10</span>
+          <span class="score-display" id="w2quiz-score">Score: 0/0</span>
+        </div>
+
+        <div class="progress-bar-outer">
+          <div class="progress-bar-inner" id="w2quiz-progress" style="width:0%"></div>
+        </div>
+
+        <div class="question-card" id="w2quiz-question-card">
+          <div class="q-number">Question 1</div>
+          <div class="q-text"></div>
+          <div class="options-list" id="w2quiz-options"></div>
+        </div>
+
+        <div class="explanation-box" id="w2quiz-explanation"></div>
+
+        <div class="quiz-controls">
+          <button class="btn btn-primary" id="w2quiz-submit" disabled>Submit Answer</button>
+          <button class="btn btn-secondary" id="w2quiz-next" style="display:none;">Next Question</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p><a href="../">Back to Home</a> | <a href="./">Week 2 Notes</a><br>
+      VM2100 — The Royal Veterinary College, London</p>
+    </div>
+  </div>
+
+  <script src="../js/particles.js"></script>
+  <script src="../js/quiz.js"></script>
+  <script>
+    var questions = [
+      {
+        id: 'w2-1',
+        question: 'To summarise a <strong>categorical variable</strong> (e.g., breed), the most appropriate visualisation is:',
+        options: ['A. Histogram', 'B. Bar chart and frequency table', 'C. Scatter plot', 'D. Box plot'],
+        correct: 1,
+        explanation: '<strong>Bar charts</strong> and <strong>frequency tables</strong> are best for categorical data. Always present <strong>numbers and percentages</strong> for each category, plus the total.'
+      },
+      {
+        id: 'w2-2',
+        question: 'To summarise a <strong>continuous variable</strong> (e.g., body weight), the most appropriate initial visualisation is:',
+        options: ['A. Pie chart', 'B. Bar chart', 'C. Histogram', 'D. Venn diagram'],
+        correct: 2,
+        explanation: 'A <strong>histogram</strong> is the first step for continuous data. It reveals the <strong>shape of the distribution</strong> (normal vs skewed), which then determines which summary statistics to report.'
+      },
+      {
+        id: 'w2-3',
+        question: 'When data follows a <strong>normal (symmetrical) distribution</strong>, you should report:',
+        options: ['A. Median and IQR', 'B. Mean and standard deviation', 'C. Mode and range', 'D. Minimum and maximum only'],
+        correct: 1,
+        explanation: 'For <strong>normal/symmetrical</strong> distributions, use the <strong>mean</strong> (central tendency) and <strong>standard deviation</strong> (dispersion). These are the most efficient summaries for bell-shaped data.'
+      },
+      {
+        id: 'w2-4',
+        question: 'When data is <strong>skewed or has outliers</strong>, which central tendency should you report?',
+        options: ['A. Mean — it works for any distribution', 'B. Mode — it\'s the most frequent value', 'C. Median — it\'s robust to extreme values', 'D. Range — it captures the full spread'],
+        correct: 2,
+        explanation: 'The <strong>median</strong> is <strong>robust to outliers and skewness</strong>. Unlike the mean, it is not pulled toward extreme values. For skewed data, report median with IQR, Q1, Q3, and range.'
+      },
+      {
+        id: 'w2-5',
+        question: 'What does <strong>IQR (Interquartile Range)</strong> represent?',
+        options: ['A. The difference between the maximum and minimum values', 'B. The difference between Q3 and Q1 — the middle 50% of data', 'C. The standard deviation squared', 'D. The mean of all quartiles'],
+        correct: 1,
+        explanation: 'IQR = Q3 − Q1. It represents the <strong>middle 50%</strong> of the data and is a measure of dispersion that is <strong>robust to outliers</strong> — unlike the range (max − min).'
+      },
+      {
+        id: 'w2-6',
+        question: 'A veterinarian measures the body weight of 100 dogs and finds the distribution is <strong>right-skewed</strong>. What is the correct summary approach?',
+        options: ['A. Report the mean and SD — these are always valid', 'B. Report the median, range, min, max, Q1, Q3, and IQR', 'C. Only report the histogram — no numbers needed', 'D. Use a bar chart for each individual dog'],
+        correct: 1,
+        explanation: 'For skewed data, <strong>avoid the mean</strong> (it is pulled toward the tail). Instead, report the <strong>median</strong> with the <strong>five-number summary</strong> (min, Q1, median, Q3, max) and IQR.'
+      },
+      {
+        id: 'w2-7',
+        question: 'What does <strong>standard deviation (SD)</strong> measure?',
+        options: ['A. The middle value of the dataset', 'B. The difference between the largest and smallest values', 'C. The spread of data around the mean', 'D. The most common value in the dataset'],
+        correct: 2,
+        explanation: 'Standard deviation measures <strong>how spread out</strong> the data points are <strong>around the mean</strong>. A small SD means data clusters tightly around the mean; a large SD means data is more spread out.'
+      },
+      {
+        id: 'w2-8',
+        question: 'Which statement about <strong>histograms</strong> is correct?',
+        options: ['A. Histograms are used only for categorical data', 'B. Histograms show the frequency distribution of a continuous variable', 'C. Histograms display percentages for each category', 'D. Histograms are the same as bar charts'],
+        correct: 1,
+        explanation: 'A <strong>histogram</strong> shows the <strong>frequency distribution</strong> of a <strong>continuous variable</strong> by dividing it into bins (intervals). It reveals the shape (normal, skewed, bimodal) of the data.'
+      },
+      {
+        id: 'w2-9',
+        question: 'A farmer records the number of lambs born per ewe in a season. The distribution is <strong>heavily right-skewed</strong> with many zeros. Which summary is best?',
+        options: ['A. Mean and standard deviation', 'B. Median and IQR', 'C. Frequency table with percentages', 'D. Both B and C — median/IQR plus frequency table'],
+        correct: 3,
+        explanation: 'For a heavily skewed count variable with many zeros, the <strong>median and IQR</strong> describe central tendency and spread, while a <strong>frequency table</strong> provides the full picture of how many ewes had 0, 1, 2, etc. lambs.'
+      },
+      {
+        id: 'w2-10',
+        question: 'The number of rainy days in a week at a veterinary clinic is recorded. What type of variable is this, and how should it be summarised?',
+        options: ['A. Continuous — histogram and mean/SD', 'B. Discrete — can be summarised with frequency table and median/range if skewed', 'C. Ordinal — bar chart only', 'D. Nominal — frequency table only'],
+        correct: 1,
+        explanation: '"Number of rainy days" is <strong>discrete</strong> (0-7, whole numbers). Under certain conditions, discrete variables can approximate continuous ones. Use a frequency table, and depending on the distribution, report median/range (if skewed) or mean/SD (if normal).'
+      }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      initQuiz(questions, 'w2quiz', 'week2');
+      if (typeof renderMathInElement === 'function') {
+        try { renderMathInElement(document.body); } catch(e) {}
+      }
+    });
+  </script>
+</body>
+</html>
